@@ -1,0 +1,14 @@
+{
+	"extensionName": {
+		"description": "The name of the extension",
+		"message": "Smart History"
+	},
+	"extensionDescription": {
+		"description": "Manage your browser history in a smart, effective and clutter-free way",
+		"message": "Sample Description"
+	},
+	"browserActionTitle": {
+		"description": "The title of the browser action button",
+		"message": "Smart History"
+	}
+}
