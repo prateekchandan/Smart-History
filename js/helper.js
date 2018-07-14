@@ -10,12 +10,25 @@ var browserWrapper = browser;
 // var browserWrapper = chrome;
 
 var c_historySotageId = "HistoryItems";
+var c_id = "Id";
+
+function CreateNewId()
+{
+    var lastId = localStorage.getItem(c_id);
+    if(lastId == null)
+    {
+        lastId = -1;
+    }
+    lastId++;
+    localStorage.setItem(c_id, lastId);
+    return lastId;
+}
 
 function HistoryItem(url, timeStamp)
 {
-    // TODO : Set the Id here
     // TODO : Set the parent Id here
 
+    this.id = CreateNewId();
     this.url = url;
     this.timeStamp = timeStamp
 }
@@ -43,4 +56,13 @@ function GetAllHistoryItem()
     historyItems = "[" + historyItems + "]";
     historyItems = JSON.parse(historyItems);
     return historyItems;
+}
+
+function PrintAllItems()
+{
+    var historyItems = GetAllHistoryItem();
+    for(i = historyItems.length - 1 ; i >= 0 ; --i)
+    {
+        console.log(historyItems[i]);
+    }
 }
