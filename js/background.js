@@ -3,18 +3,18 @@
 browserWrapper.tabs.onUpdated.addListener(OnTabUpdated);
 browserWrapper.tabs.onActivated.addListener(OnTabAcitvated);
 
-var currentTabId = -1;
-var tabToHistoryMap = {};
+let currentTabId = -1;
+let tabToHistoryMap = {};
 
 function OnTabUpdated(tabId, changeInfo, tabInfo) {
     if (changeInfo.url) {
-      var parentId = tabToHistoryMap[currentTabId];
+      let parentId = tabToHistoryMap[currentTabId];
       if(parentId == null)
       {
         parentId = -1;
       }
-      var historyItem = new HistoryItem(changeInfo.url, parentId, Date.now());
-      AddToHistoryList(historyItem);
+      let historyItem = new HistoryItem(changeInfo.url, parentId, Date.now());
+      ExtensionState.AddToHistoryList(historyItem);
       tabToHistoryMap[tabId] = historyItem.id;
     }
 }

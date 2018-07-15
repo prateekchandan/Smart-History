@@ -9,59 +9,65 @@ var browserWrapper = browser;
 // For chrome
 // var browserWrapper = chrome;
 
-var c_historySotageId = "HistoryItems";
-var c_id = "Id";
+let c_historySotageId = "HistoryItems";
+let c_id = "Id";
 
-function CreateNewId()
+class ExtensionState
 {
-    var lastId = localStorage.getItem(c_id);
-    if(lastId == null)
+    static CreateNewId()
     {
-        lastId = -1;
-    }
-    lastId++;
-    localStorage.setItem(c_id, lastId);
-    return lastId;
-}
-
-function HistoryItem(url, parentId, timeStamp)
-{
-    this.parentId = parentId;
-    this.id = CreateNewId();
-    this.url = url;
-    this.timeStamp = timeStamp
-}
-
-function AddToHistoryList(historyItem)
-{
-    var historyItems = GetAllHistoryItem();
-    historyItems.push(historyItem);
-
-    for(i = 0; i < historyItems.length; ++i)
-    {
-       historyItems[i] = JSON.stringify(historyItems[i]);
+        let lastId = localStorage.getItem(c_id);
+        if (lastId == null)
+        {
+            lastId = -1;
+        }
+        lastId++;
+        localStorage.setItem(c_id, lastId);
+        return lastId;
     }
 
-    localStorage.setItem(c_historySotageId, historyItems);
+    static GetAllHistoryItems()
+    {
+        let historyItems = localStorage.getItem(c_historySotageId);
+        if (historyItems == null)
+        {
+            return [];
+        };
+        historyItems = "[" + historyItems + "]";
+        historyItems = JSON.parse(historyItems);
+        return historyItems;
+    }
+
+    static AddToHistoryList(historyItem)
+    {
+        let historyItems = ExtensionState.GetAllHistoryItems();
+        historyItems.push(historyItem);
+
+        for (let i = 0; i < historyItems.length; ++i)
+        {
+            historyItems[i] = JSON.stringify(historyItems[i]);
+        }
+
+        localStorage.setItem(c_historySotageId, historyItems);
+    }
+
+    static PrintAllItems()
+    {
+        let historyItems = ExtensionState.GetAllHistoryItems();
+        for (let i = historyItems.length - 1; i >= 0; --i)
+        {
+            console.log(historyItems[i]);
+        }
+    }
 }
 
-function GetAllHistoryItem()
+class HistoryItem
 {
-    var historyItems = localStorage.getItem(c_historySotageId);
-    if(historyItems == null)
+    constructor(url, parentId, timeStamp)
     {
-        return [];
-    };
-    historyItems = "[" + historyItems + "]";
-    historyItems = JSON.parse(historyItems);
-    return historyItems;
-}
-
-function PrintAllItems()
-{
-    var historyItems = GetAllHistoryItem();
-    for(i = historyItems.length - 1 ; i >= 0 ; --i)
-    {
-        console.log(historyItems[i]);
+        this.id = ExtensionState.CreateNewId();
+        this.parentId = parentId;
+        this.url = url;
+        this.timeStamp = timeStamp;
     }
 }
