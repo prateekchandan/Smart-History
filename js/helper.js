@@ -24,10 +24,9 @@ function CreateNewId()
     return lastId;
 }
 
-function HistoryItem(url, timeStamp)
+function HistoryItem(url, parentId, timeStamp)
 {
-    // TODO : Set the parent Id here
-
+    this.parentId = parentId;
     this.id = CreateNewId();
     this.url = url;
     this.timeStamp = timeStamp
