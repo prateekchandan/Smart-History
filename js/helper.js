@@ -4,7 +4,7 @@
 // chrome and browser to switch between different browser extensions
 
 // For all browsers except chrome
-var browserWrapper = browser;
+let browserWrapper = browser;
 
 // For chrome
 // var browserWrapper = chrome;
@@ -51,13 +51,18 @@ class ExtensionState
         localStorage.setItem(c_historySotageId, historyItems);
     }
 
-    static PrintAllItems()
+    static PrintAllItemsLog()
     {
         let historyItems = ExtensionState.GetAllHistoryItems();
         for (let i = historyItems.length - 1; i >= 0; --i)
         {
             console.log(historyItems[i]);
         }
+    }
+
+    static PrintAllItems()
+    {
+        console.table(ExtensionState.GetAllHistoryItems(), ["id", "url"]);
     }
 }
 
