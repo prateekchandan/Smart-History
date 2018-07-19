@@ -12,21 +12,14 @@ let currentTimeInMillis = currentDate.getTime();
 
 historyItems.map((historyItem) =>
 {
-    switch (Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 86400000))
-    {
-        case 1:
-            historyToday.push(historyItem);
-            break;
-        case 7:
-            historyLastWeek.push(historyItem);
-            break;
-        case 30:
-            historyLastMonth.push(historyItem);
-            break;
-        default:
-            historyLastMonth.push(historyItem);
-            break;
-    }
+    let daysOld = Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 86400000);
+
+    if (daysOld <= 1)
+        historyToday.push(historyItem);
+    else if (daysOld <= 7)
+        historyLastWeek.push(historyItem);
+    else if (daysOld <= 30)
+        historyLastMonth.push(historyItem);
 })
 
 // I know I could've just written a function but meh
