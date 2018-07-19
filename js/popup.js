@@ -20,33 +20,29 @@ historyItems.map((historyItem) =>
         historyLastWeek.push(historyItem);
     else if (daysOld <= 30)
         historyLastMonth.push(historyItem);
-})
+});
 
-// I know I could've just written a function but meh
-
-for (let i = historyToday.length - 1; i >= 0; --i)
+function FillUpHistory(historyArray, parentDomId)
 {
-    todayHistory.innerHTML += `
-    <div class="col-1">${historyToday[i].id}</div>
-    <div class="col-1">${historyToday[i].parentId}</div>
-    <div class="col-10"><p style="overflow:hidden;">${historyToday[i].url}</p></div>
-    `
+    for (let i = historyArray.length - 1; i >= 0; --i)
+    {
+        let url = historyArray[i].url;
+        if (url)
+        {
+            let matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+            let domain = matches && matches[1];
+
+            parentDomId.innerHTML += `
+                <div class="col-1">${historyArray[i].id}</div>
+                <div class="col-1">${historyArray[i].parentId}</div>
+                <div class="col-10"><p style="overflow:hidden;"><a href="${historyArray[i].url}">
+                    ${domain == undefined ? "Unknown" : domain}
+                </a></p></div>
+            `
+        }
+    }
 }
 
-for (let i = historyLastWeek.length - 1; i >= 0; --i)
-{
-    thisWeekHistory.innerHTML += `
-    <div class="col-1">${historyLastWeek[i].id}</div>
-    <div class="col-1">${historyLastWeek[i].parentId}</div>
-    <div class="col-10"><p style="overflow:hidden;">${historyLastWeek[i].url}</p></div>
-    `
-}
-
-for (let i = historyLastMonth.length - 1; i >= 0; --i)
-{
-    lastMonthHistory.innerHTML += `
-    <div class="col-1">${historyLastMonth[i].id}</div>
-    <div class="col-1">${historyLastMonth[i].parentId}</div>
-    <div class="col-10"><p style="overflow:hidden;">${historyLastMonth[i].url}</p></div>
-    `
-}
+FillUpHistory(historyToday, todayHistory);
+FillUpHistory(historyLastWeek, thisWeekHistory);
+FillUpHistory(historyLastMonth, lastMonthHistory);

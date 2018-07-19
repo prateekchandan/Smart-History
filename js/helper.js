@@ -68,8 +68,9 @@ class ExtensionState
 
 class HistoryItem
 {
-    constructor(url, parentId, timeStamp)
+    constructor(title, url, parentId, timeStamp)
     {
+        this.title = title;
         this.id = ExtensionState.CreateNewId();
         this.parentId = parentId;
         this.url = url;
