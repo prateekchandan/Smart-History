@@ -29,9 +29,7 @@ function FillUpHistory(historyArray, parentDomId)
         let url = historyArray[i].url;
         if (url)
         {
-            let matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-            let domain = matches && matches[1];
-
+            let domain = historyArray[i].hostname;
             parentDomId.innerHTML += `
                 <div class="col-1">${historyArray[i].id}</div>
                 <div class="col-1">${historyArray[i].parentId}</div>
@@ -46,3 +44,6 @@ function FillUpHistory(historyArray, parentDomId)
 FillUpHistory(historyToday, todayHistory);
 FillUpHistory(historyLastWeek, thisWeekHistory);
 FillUpHistory(historyLastMonth, lastMonthHistory);
+
+$("#loader").css("display","none");
+$("#content").css("display","block");

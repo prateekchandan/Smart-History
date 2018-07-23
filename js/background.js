@@ -15,7 +15,7 @@ function OnTabUpdated(tabId, changeInfo, tabInfo)
         {
             parentId = -1;
         }
-        let historyItem = new HistoryItem(changeInfo.url, parentId, Date.now());
+        let historyItem = new HistoryItem("", changeInfo.url, parentId, Date.now());
         ExtensionState.AddToHistoryList(historyItem);
         tabToHistoryMap[tabId] = historyItem.id;
     }
