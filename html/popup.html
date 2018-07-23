@@ -8,30 +8,67 @@
 
 <body>
     <div class="container-fluid">
-        <section id="loader">
-            <h2>Loading the History...</h2>
-            <div class="loader"></div>
-        </section>
-        <section id="content">
-            <div class="row" id="todayHistory">
-                <div class="col-12">
-                    <h3>Today's History</h3>
-                    <hr>
-                </div>
+    <section id="loader">
+        <h2 style="margin:auto">Loading the History...</h2>
+        <div class="loader"></div>
+    </section>
+    <section id="content">
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisHourHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>This Hour</h3>
+            </a>
+            <div class="collapse show" id="thisHourHistory">
+            <div id="thisHourHistoryItems"></div>
             </div>
-            <div class="row" id="thisWeekHistory">
-                <div class="col-12">
-                    <h3>Last Week's History</h3>
-                    <hr>
-                </div>
+            <hr>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#todayHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>Earlier Today</h3>
+            </a>
+            <div class="collapse show" id="todayHistory">
+            <div id="todayHistoryItems"></div>
             </div>
-            <div class="row" id="lastMonthHistory">
-                <div class="col-12">
-                    <h3>Last Months's History</h3>
-                    <hr>
-                </div>
+            <hr>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisWeekHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>This Week</h3>
+            </a>
+            <div class="collapse" id="thisWeekHistory">
+            <div id="thisWeekHistoryItems"></div>
             </div>
-        </section>
+            <hr>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#lastMonthHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>This month</h3>
+            </a>
+            <div class="collapse" id="lastMonthHistory">
+            <div id="lastMonthHistoryItems"></div>
+            </div>
+            <hr>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#olderHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>Older</h3>
+            </a>
+            <div class="collapse" id="olderHistory">
+            <div id="olderHistoryItems"></div>
+            </div>
+            <hr>
+        </div>
+        </div>
+    </section>
     </div>
 
     <script src="../js/extras/jquery-3.3.1.slim.min.js"></script>
