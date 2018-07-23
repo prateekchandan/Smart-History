@@ -8,14 +8,15 @@ let tabToHistoryMap = {};
 
 function OnTabUpdated(tabId, changeInfo, tabInfo)
 {
-    if (changeInfo.url)
+    if (changeInfo.status == "complete")
     {
         let parentId = tabToHistoryMap[currentTabId];
         if (parentId == null)
         {
             parentId = -1;
         }
-        let historyItem = new HistoryItem("", changeInfo.url, parentId, Date.now());
+        console.log(tabInfo);
+        let historyItem = new HistoryItem(tabInfo.title, tabInfo.url, parentId, tabInfo.favIconUrl, Date.now());
         ExtensionState.AddToHistoryList(historyItem);
         tabToHistoryMap[tabId] = historyItem.id;
     }

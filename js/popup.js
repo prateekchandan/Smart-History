@@ -62,9 +62,9 @@ function FillUpHistory(historyObject, parentDomId)
                 {
                     let domain = historyArray[i].hostname;
                     let favicon = "../image/browseraction_icon_40.png";
-                    if(historyArray[i].favicon != undefined)
+                    if(historyArray[i].faviconUrl != undefined)
                     {
-                        favicon = historyArray[i].favicon;
+                        favicon = historyArray[i].faviconUrl;
                     }
                     let date = new Date(historyArray[i].timeStamp);
                     let dateString = "";
@@ -100,7 +100,7 @@ function FillUpHistory(historyObject, parentDomId)
                         <img src="${favicon}" class="favicon">
                         </div>
                         <div class="col-8">
-                        <div class="title-text">${historyArray[i].title}, ${historyArray[i].hostname}</div>
+                        <div class="title-text">${historyArray[i].title}</div>
                         <div><a href="${url}" class="url-text">${url}</a></div>
                         </div>
                         <div class="col-2 time-text-parent">

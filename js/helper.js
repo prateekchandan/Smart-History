@@ -68,7 +68,7 @@ class ExtensionState
 
 class HistoryItem
 {
-    constructor(title, url, parentId, timeStamp)
+    constructor(title, url, parentId, faviconUrl, timeStamp)
     {
         this.title = title;
         this.id = ExtensionState.CreateNewId();
@@ -76,10 +76,13 @@ class HistoryItem
         this.url = url;
         this.timeStamp = timeStamp;
         this.hostname = ExtractHostname(url);
+        this.faviconUrl = faviconUrl;
+        console.log(faviconUrl);
     }
 }
 
 function ExtractHostname(url) {
+    console.log(url);
     var hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
 
