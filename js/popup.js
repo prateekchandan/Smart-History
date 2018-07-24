@@ -16,7 +16,12 @@ let currentTimeInMillis = currentDate.getTime();
 
 function PutHistoryItemInGroup(group, historyItem)
 {
+    let treeItem = treeItemList.GetItemWithId(historyItem.treeId);
     let hostname = ExtractHostname(historyItem.url);
+    if(treeItem.isSearchEngine)
+    {
+        hostname = treeItem.searchEngine + " Search: " + treeItem.searchString;
+    }
     if(!(hostname in group))
     {
         group[hostname] = [];

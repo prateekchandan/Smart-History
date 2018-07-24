@@ -72,11 +72,11 @@ class TreeItem
         {
             if(this.hostname == "www.google.com")
             {
-                this.searchEngine == "Google";
+                this.searchEngine = "Google";
             }
             else if(this.hostname == "www.bing.com")
             {
-                this.searchEngine == "Bing";
+                this.searchEngine = "Bing";
             }
         }
     }
