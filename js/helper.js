@@ -175,4 +175,39 @@ function FlattenObjectToValueArray(obj)
     return arr;
 }
 
+function GetDateStringFromTimeStamp(timeStamp)
+{
+    let currentDate = new Date();
+    let currentTimeInMillis = currentDate.getTime();
+    let date = new Date(timeStamp);
+    let dateString = "";
+    if(Math.ceil((currentTimeInMillis - timeStamp) / 3600000) <= 24)
+    {
+        dateString = date.getHours() % 12;
+        if((date.getHours() % 12) < 10)
+        {
+            dateString = "0" + dateString;
+        }
+        dateString += ":";
+        if(date.getMinutes() < 10)
+        {
+            dateString += "0"; 
+        }
+        dateString += date.getMinutes() + " ";
+        if(date.getHours() < 12)
+        {
+            dateString+="A.M";
+        }
+        else
+        {
+            dateString+="P.M";
+        }
+    }
+    else
+    {
+        dateString = date.getDate()+ "-" + date.getMonth() + "-" + date.getFullYear();
+    }
+    return dateString;
+}
+
 //#endregion

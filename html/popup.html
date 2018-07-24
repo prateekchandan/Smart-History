@@ -13,12 +13,20 @@
             <div class="loader"></div>
         </section>
         <section id = "allItem">
-            <div id="scrollable-dropdown-menu" class="row">
+            <div class="row">
+                <div class="col">
+                    <div class="search-wrapper">
+                        <input type="text" id="searchbox" class="search-box" placeholder="Enter search term" />
+                        <button class="close-icon" type="reset"></button>
+                    </div>
+                </div> 
+            </div>
+            <div id="scrollable-dropdown-menu" class="row" style="display: none">
                 <div class="col-12">
                     <input class="typeahead" type="text" placeholder="search history" id="searchWorker">
                 </div>
             </div>
-            <section id="content">
+            <section id="HistoryContent">
                 <div class="row" id="thisHourHistoryBlock">
                     <div class="col-12">
                         <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisHourHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -76,7 +84,10 @@
                 </div>
             </section>
             <section id="search">
-                
+                <h4>Search Results</h4>
+                <div id="searchResults">
+
+                </div>
             </section>
         </section>
     </div>

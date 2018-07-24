@@ -28,10 +28,11 @@
  }
 }
 body {
-  width: 450px;
-  height: 600px;
+  width: 500px;
+  height: 650px;
+  overflow-x: hidden;
 }
-#content, #allItem, #search {
+#HistoryContent, #allItem, #search {
   display: none;
 }
 #loader {
@@ -45,6 +46,12 @@ body {
 }
 .url-text {
   font-size: 0.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+.result-title {
   white-space: nowrap;
   overflow: hidden;
   display: block;
@@ -66,58 +73,52 @@ body {
 .history-item-element {
   padding: 10px;
 }
-.bs-example {
-  font-family: sans-serif;
-  position: relative;
-  margin: 100px;
+/* search Box */
+
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	padding: 10px;
 }
-.typeahead, .tt-query, .tt-hint {
-  border: 2px solid #CCCCCC;
-  border-radius: 8px;
-  font-size: 22px;
- /* Set input font size */
-  height: 30px;
-  line-height: 30px;
-  outline: medium none;
-  padding: 8px 12px;
-  width: 396px;
+.search-wrapper {
+	width: 500px;
+	margin: auto;
 }
-.typeahead {
-  background-color: #FFFFFF;
+.search-box {
+	width: 440px;
+	border: 1px solid #ccc;
+  outline: 0;
 }
-.typeahead:focus {
-  border: 2px solid #0097CF;
+.search-box:focus {
+	box-shadow: 0 0 1px 1px #b0e0ee;
+	border: 1px solid #bebede;
 }
-.tt-query {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-}
-.tt-hint {
-  color: #999999;
-}
-.tt-menu {
-  background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  margin-top: 12px;
-  padding: 8px 0;
-  width: 422px;
-}
-.tt-suggestion {
-  font-size: 22px;
- /* Set suggestion dropdown font size */
-  padding: 3px 20px;
-}
-.tt-suggestion:hover {
+.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: middle;
+  outline: 0;
   cursor: pointer;
-  background-color: #0097CF;
-  color: #FFFFFF;
 }
-.tt-suggestion p {
-  margin: 0;
+.close-icon:after {
+	content: "X";
+	display: block;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	background-color: #FFF;
+	z-index:1;
+	right: 35px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	padding: 2px;
+	text-align: center;
+	color: black;
+	font-weight: normal;
+	font-size: 12px;
+	cursor: pointer;
 }
-#scrollable-dropdown-menu .tt-dropdown-menu {
-  max-height: 150px;
-  overflow-y: auto;
-  background-color: #FF0000;
+.search-box:not(:valid) ~ .close-icon {
+	display: none;
 }

@@ -55,7 +55,7 @@ function FillUpHistory(historyObject, parentDomId)
             let id = parentDomId.id+i;
             i++;
             parentDomId.innerHTML += `
-            <a class="btn btn-outline-primary btn-block" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-outline-primary btn-block result-title" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample">
                 ${hostName}
             </a>
             <div class="collapse" id="${id}">
@@ -75,34 +75,7 @@ function FillUpHistory(historyObject, parentDomId)
                     {
                         favicon = historyArray[i].faviconUrl;
                     }
-                    let date = new Date(historyArray[i].timeStamp);
-                    let dateString = "";
-                    if(Math.ceil((currentTimeInMillis - historyArray[i].timeStamp) / 3600000) <= 24)
-                    {
-                        dateString = date.getHours() % 12;
-                        if((date.getHours() % 12) < 10)
-                        {
-                            dateString = "0" + dateString;
-                        }
-                        dateString += ":";
-                        if(date.getMinutes() < 10)
-                        {
-                            dateString += "0"; 
-                        }
-                        dateString += date.getMinutes() + " ";
-                        if(date.getHours() < 12)
-                        {
-                            dateString+="A.M";
-                        }
-                        else
-                        {
-                            dateString+="P.M";
-                        }
-                    }
-                    else
-                    {
-                        dateString = date.getDate()+ "-" + date.getMonth() + "-" + date.getFullYear();
-                    }
+                    let dateString = GetDateStringFromTimeStamp(historyArray[i].timeStamp);
                     document.getElementById(id + "-card").innerHTML = `
                     <div class="row">
                         <div class="col-1">
@@ -141,7 +114,7 @@ FillUpHistory(historyLastMonth, lastMonthHistoryItems);
 FillUpHistory(historyOlder, olderHistoryItems);
 
 $("#loader").css("display","none");
-$("#content").css("display","block");
+$("#HistoryContent").css("display","block");
 $("#allItem").css("display","block");
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();   
@@ -173,3 +146,54 @@ $('#searchWorker').typeahead({
   name: 'pages',
   source: pages
 });
+
+$("#searchbox").on('input change click', function() {
+    $(".typeahead").typeahead('val',$(this).val());
+    UpdateSearchBox();
+ });
+
+ $(".close-icon").on('click', function(){
+    $("#searchbox").val("");
+    $(".typeahead").typeahead('val',$("#searchbox").val());
+    UpdateSearchBox();
+ });
+
+ function UpdateSearchBox()
+ {
+    let text = $("#searchbox").val();
+    $("#searchResults").html("");
+    if(text.length == 0)
+    {
+        $("#HistoryContent").css("display","block");
+        $("#search").css("display","none");
+        return;
+    }
+    $("#HistoryContent").css("display","none");
+    $("#search").css("display","block");
+
+    let resultBlocks = $('.tt-suggestion');
+
+    for(let i = 0; i < resultBlocks.length; ++i)
+    {
+        let result = JSON.parse($(resultBlocks[i]).text());
+        let searchResultHtml = `
+                    <div class="row">
+                        <div class="col-1">
+                        <img src="${result.faviconUrl}" class="favicon">
+                        </div>
+                        <div class="col-8">
+                        <div class="title-text">${result.title}</div>
+                        <div><a href="${result.url}" data-toggle="tooltip" title="${result.url}" class="url-text">${result.url}</a></div>
+                        </div>
+                        <div class="col-2 time-text-parent">
+                        <span class="time-text">${GetDateStringFromTimeStamp(result.timeStamp)}</span>
+                        </div>
+                    </div>
+                    `;
+        $("#searchResults").html($("#searchResults").html() + searchResultHtml + "<hr>");
+    }
+    if(resultBlocks.length == 0)
+    {
+        $("#searchResults").html(`<div class="alert alert-dark">No Search Result!</div>`);
+    }
+ }

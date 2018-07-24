@@ -1504,7 +1504,7 @@
                 !isValid && this.clearHint();
             },
             hasFocus: function hasFocus() {
-                return this.$input.is(":focus");
+                return true;//this.$input.is(":focus");
             },
             hasOverflow: function hasOverflow() {
                 var constraint = this.$input.width() - 2;
