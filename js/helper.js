@@ -68,12 +68,37 @@ class ExtensionState
 
 class HistoryItem
 {
-    constructor(title, url, parentId, timeStamp)
+    constructor(title, url, parentId, faviconUrl, timeStamp)
     {
         this.title = title;
         this.id = ExtensionState.CreateNewId();
         this.parentId = parentId;
         this.url = url;
         this.timeStamp = timeStamp;
+        this.hostname = ExtractHostname(url);
+        this.faviconUrl = faviconUrl;
+        console.log(faviconUrl);
     }
+}
+
+function ExtractHostname(url) {
+    console.log(url);
+    var hostname;
+    //find & remove protocol (http, ftp, etc.) and get hostname
+
+    if (url.indexOf("://") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+    //find & remove "#"
+    hostname = hostname.split('#')[0];
+
+    return hostname;
 }

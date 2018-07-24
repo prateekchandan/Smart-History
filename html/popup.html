@@ -2,39 +2,78 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/extras/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/popup.css">
 </head>
 
-<body style="max-width: 400px; height: 600px;">
-    <div class="container-fluid" style="max-width: 400px;">
-        <div class="row" id="todayHistory">
-            <div class="col-12">
-                <h3>Today's History</h3>
-                <hr>
+<body>
+    <div class="container-fluid">
+    <section id="loader">
+        <h2 style="margin:auto">Loading the History...</h2>
+        <div class="loader"></div>
+    </section>
+    <section id="content">
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisHourHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>This Hour</h3>
+            </a>
+            <div class="collapse show" id="thisHourHistory">
+            <div id="thisHourHistoryItems"></div>
             </div>
+            <hr>
         </div>
-        <div class="row" id="thisWeekHistory">
-            <div class="col-12">
-                <h3>Last Week's History</h3>
-                <hr>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#todayHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>Earlier Today</h3>
+            </a>
+            <div class="collapse show" id="todayHistory">
+            <div id="todayHistoryItems"></div>
             </div>
+            <hr>
         </div>
-        <div class="row" id="lastMonthHistory">
-            <div class="col-12">
-                <h3>Last Months's History</h3>
-                <hr>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisWeekHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>This Week</h3>
+            </a>
+            <div class="collapse" id="thisWeekHistory">
+            <div id="thisWeekHistoryItems"></div>
             </div>
+            <hr>
         </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#lastMonthHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>This month</h3>
+            </a>
+            <div class="collapse" id="lastMonthHistory">
+            <div id="lastMonthHistoryItems"></div>
+            </div>
+            <hr>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+            <a class="btn btn-primary btn-block" data-toggle="collapse" href="#olderHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <h3>Older</h3>
+            </a>
+            <div class="collapse" id="olderHistory">
+            <div id="olderHistoryItems"></div>
+            </div>
+            <hr>
+        </div>
+        </div>
+    </section>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
-        crossorigin="anonymous"></script>
-
+    <script src="../js/extras/jquery-3.3.1.slim.min.js"></script>
+    <script src="../js/extras/popper.min.js"></script>
+    <script src="../js/extras/bootstrap.min.js"></script>
     <script src="../js/helper.js"></script>
     <script src="../js/popup.js"></script>
 </body>
