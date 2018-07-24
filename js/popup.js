@@ -135,10 +135,13 @@ $("#content").css("display","block");
 
 // construct the suggestion engine
 var pages = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  datumTokenizer: function(d) { 
+    return Bloodhound.tokenizers.whitespace(d.title); 
+  },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local: historyItems
   //identify: function(obj) { return obj.title; },
-  local: titles
+  //local: titles
   
 });
 
