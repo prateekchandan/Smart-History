@@ -2,6 +2,7 @@ let list = document.getElementById("list");
 
 // populate the popup
 let historyItemList = new HistoryItemList();
+let treeItemList = new TreeItemList();
 let historyItems = FlattenObjectToValueArray(historyItemList.items);
 
 let historyHour = {};

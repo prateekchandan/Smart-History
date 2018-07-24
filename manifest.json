@@ -24,6 +24,7 @@
   "options_page": "html/options.html",
   "permissions": [
     "tabs",
-	"cookies"
+  "cookies",
+  "activeTab"
   ]
 }

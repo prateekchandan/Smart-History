@@ -37,45 +37,6 @@ class ExtensionState
     {
         return ExtensionState.CreateNewIdHelper(c_treeId);
     }
-
-    static GetAllHistoryItems()
-    {
-        let historyItems = localStorage.getItem(c_historySotageId);
-        if (historyItems == null)
-        {
-            return [];
-        };
-        historyItems = "[" + historyItems + "]";
-        historyItems = JSON.parse(historyItems);
-        return historyItems;
-    }
-
-    static AddToHistoryList(historyItem)
-    {
-        let historyItems = ExtensionState.GetAllHistoryItems();
-        historyItems.push(historyItem);
-
-        for (let i = 0; i < historyItems.length; ++i)
-        {
-            historyItems[i] = JSON.stringify(historyItems[i]);
-        }
-
-        localStorage.setItem(c_historySotageId, historyItems);
-    }
-
-    static PrintAllItemsLog()
-    {
-        let historyItems = ExtensionState.GetAllHistoryItems();
-        for (let i = historyItems.length - 1; i >= 0; --i)
-        {
-            console.log(historyItems[i]);
-        }
-    }
-
-    static PrintAllItems()
-    {
-        console.table(ExtensionState.GetAllHistoryItems(), ["id", "url"]);
-    }
 }
 
 class HistoryItem
@@ -90,7 +51,6 @@ class HistoryItem
         this.hostname = ExtractHostname(url);
         this.faviconUrl = faviconUrl;
         this.treeId = treeId;
-        console.log(faviconUrl);
     }
 }
 
@@ -101,7 +61,8 @@ class TreeItem
         this.id = ExtensionState.CreateNewTreeId();
         this.hostname = hostname;
         this.searchString = searchString;
-        this.isSearchEngine = ((searchString == null) || (searchString.length == 0));
+        this.isSearchEngine = !((searchString == null) || (searchString.length == 0));
+        this.timeStamp = Date.now();
         if(this.isSearchEngine)
         {
             if(hostname == "www.google.com")
@@ -145,11 +106,39 @@ class HistoryItemList
     }
 }
 
+class TreeItemList
+{
+    constructor()
+    {
+        let treeItems = localStorage.getItem(c_treeStorageId);
+        if (treeItems == null)
+        {
+            treeItems = "{}";
+        }
+        this.items = JSON.parse(treeItems);
+    }
+
+    AddOrupdateItems(treeItem)
+    {
+        this.items[treeItem.id] = treeItem;
+        this.Update();
+    }
+
+    GetItemWithId(id)
+    {
+        return this.items[id];
+    }
+
+    Update()
+    {
+        localStorage.setItem(c_treeStorageId, JSON.stringify(this.items));
+    }
+}
+
 //#region Util Methods
 
 function ExtractHostname(url) 
 {
-    console.log(url);
     var hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
 
