@@ -110,7 +110,7 @@ function FillUpHistory(historyObject, parentDomId)
                         </div>
                         <div class="col-8">
                         <div class="title-text">${historyArray[i].title}</div>
-                        <div><a href="${url}" class="url-text">${url}</a></div>
+                        <div><a href="${url}" data-toggle="tooltip" title="${url}" class="url-text">${url}</a></div>
                         </div>
                         <div class="col-2 time-text-parent">
                         <span class="time-text">${dateString}</span>
@@ -142,6 +142,10 @@ FillUpHistory(historyOlder, olderHistoryItems);
 
 $("#loader").css("display","none");
 $("#content").css("display","block");
+$("#allItem").css("display","block");
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
 
 // construct the suggestion engine
 var pages = new Bloodhound({
@@ -161,7 +165,7 @@ initialized
 .fail(function() { console.log('err, something went wrong :('); });
 
 $('#searchWorker').typeahead({
-  hint: true,
+  hint: false,
   highlight: true,
   minLength: 1
 },

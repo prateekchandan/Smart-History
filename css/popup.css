@@ -1,140 +1,123 @@
 .loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    margin: auto;
-    margin-top:60px;
-  }
-  
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+ /* Safari */
+  animation: spin 2s linear infinite;
+  margin: auto;
+  margin-top:60px;
+}
 /* Safari */
 @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  body
-  {
-    width: 450px;
-    height: 600px;
-  }
-
-  #content
-  {
-      display: none;
-  }
-
-  #loader
-  {
-      padding: 20px;
-      padding-top: 100px;
-      display: block;
-  }
-
-  .favicon
-  {
-      height: 20px;
-      width: 20px;
-  }
-
-  .url-text
-  {
-    font-size: 0.75em;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-    text-overflow: ellipsis;
-  }
-
-  .title-text
-  {
-    font-size: 0.8em;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-    text-overflow: ellipsis;
-  }
-
-  .time-text
-  {
-      font-size:0.8em;
-  }
-
-  .time-text-parent
-  {
-      padding: 0px;
-  }
-
-  .history-item-element
-  {
-      padding: 10px;
-  }
-  
-  
-  .bs-example {
-	font-family: sans-serif;
-	position: relative;
-	margin: 100px;
+  0% {
+      -webkit-transform: rotate(0deg);
+ }
+  100% {
+      -webkit-transform: rotate(360deg);
+ }
 }
-
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+ }
+  100% {
+      transform: rotate(360deg);
+ }
+}
+body {
+  width: 450px;
+  height: 600px;
+}
+#content, #allItem, #search {
+  display: none;
+}
+#loader {
+  padding: 20px;
+  padding-top: 100px;
+  display: block;
+}
+.favicon {
+  height: 20px;
+  width: 20px;
+}
+.url-text {
+  font-size: 0.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+.title-text {
+  font-size: 0.8em;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+.time-text {
+  font-size:0.8em;
+}
+.time-text-parent {
+  padding: 0px;
+}
+.history-item-element {
+  padding: 10px;
+}
+.bs-example {
+  font-family: sans-serif;
+  position: relative;
+  margin: 100px;
+}
 .typeahead, .tt-query, .tt-hint {
-	border: 2px solid #CCCCCC;
-	border-radius: 8px;
-	font-size: 22px; /* Set input font size */
-	height: 30px;
-	line-height: 30px;
-	outline: medium none;
-	padding: 8px 12px;
-	width: 396px;
+  border: 2px solid #CCCCCC;
+  border-radius: 8px;
+  font-size: 22px;
+ /* Set input font size */
+  height: 30px;
+  line-height: 30px;
+  outline: medium none;
+  padding: 8px 12px;
+  width: 396px;
 }
 .typeahead {
-	background-color: #FFFFFF;
+  background-color: #FFFFFF;
 }
 .typeahead:focus {
-	border: 2px solid #0097CF;
+  border: 2px solid #0097CF;
 }
 .tt-query {
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }
 .tt-hint {
-	color: #999999;
+  color: #999999;
 }
 .tt-menu {
-	background-color: #FFFFFF;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 8px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	margin-top: 12px;
-	padding: 8px 0;
-	width: 422px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 12px;
+  padding: 8px 0;
+  width: 422px;
 }
 .tt-suggestion {
-	font-size: 22px;  /* Set suggestion dropdown font size */
-	padding: 3px 20px;
+  font-size: 22px;
+ /* Set suggestion dropdown font size */
+  padding: 3px 20px;
 }
 .tt-suggestion:hover {
-	cursor: pointer;
-	background-color: #0097CF;
-	color: #FFFFFF;
+  cursor: pointer;
+  background-color: #0097CF;
+  color: #FFFFFF;
 }
 .tt-suggestion p {
-	margin: 0;
+  margin: 0;
 }
-
 #scrollable-dropdown-menu .tt-dropdown-menu {
-
   max-height: 150px;
-
   overflow-y: auto;
-  
   background-color: #FF0000;
-
 }

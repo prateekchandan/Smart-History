@@ -7,74 +7,78 @@
 </head>
 
 <body>
-	<div id="scrollable-dropdown-menu" class="row">
-	<div class="col-12">
-		<input class="typeahead" type="text" placeholder="search history" id="searchWorker">
-	</div>
-	</div>
-	
     <div class="container-fluid">
-    <section id="loader">
-        <h2 style="margin:auto">Loading the History...</h2>
-        <div class="loader"></div>
-    </section>
-    <section id="content">
-        <div class="row" id="thisHourHistoryBlock">
-            <div class="col-12">
-                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisHourHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <h4>This Hour</h4>
-                </a>
-                <div class="collapse show" id="thisHourHistory">
-                <div id="thisHourHistoryItems"></div>
+        <section id="loader">
+            <h2 style="margin:auto">Loading the History...</h2>
+            <div class="loader"></div>
+        </section>
+        <section id = "allItem">
+            <div id="scrollable-dropdown-menu" class="row">
+                <div class="col-12">
+                    <input class="typeahead" type="text" placeholder="search history" id="searchWorker">
                 </div>
-                <hr>
             </div>
-        </div>
-        <div class="row" id="todayHistoryBlock">
-            <div class="col-12">
-                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#todayHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <h4>Earlier Today</h4>
-                </a>
-                <div class="collapse show" id="todayHistory">
-                <div id="todayHistoryItems"></div>
+            <section id="content">
+                <div class="row" id="thisHourHistoryBlock">
+                    <div class="col-12">
+                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisHourHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h4>This Hour</h4>
+                        </a>
+                        <div class="collapse show" id="thisHourHistory">
+                        <div id="thisHourHistoryItems"></div>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
-                <hr>
-            </div>
-        </div>
-        <div class="row" id="thisWeekHistoryBlock">
-            <div class="col-12">
-                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisWeekHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <h3>This Week</h3>
-                </a>
-                <div class="collapse" id="thisWeekHistory">
-                <div id="thisWeekHistoryItems"></div>
+                <div class="row" id="todayHistoryBlock">
+                    <div class="col-12">
+                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#todayHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h4>Earlier Today</h4>
+                        </a>
+                        <div class="collapse show" id="todayHistory">
+                        <div id="todayHistoryItems"></div>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
-                <hr>
-            </div>
-        </div>
-        <div class="row" id="lastMonthHistoryBlock">
-            <div class="col-12">
-                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#lastMonthHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <h3>This month</h3>
-                </a>
-                <div class="collapse" id="lastMonthHistory">
-                <div id="lastMonthHistoryItems"></div>
+                <div class="row" id="thisWeekHistoryBlock">
+                    <div class="col-12">
+                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#thisWeekHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h3>This Week</h3>
+                        </a>
+                        <div class="collapse" id="thisWeekHistory">
+                        <div id="thisWeekHistoryItems"></div>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
-                <hr>
-            </div>
-        </div>
-        <div class="row" id="olderHistoryBlock">
-            <div class="col-12">
-                <a class="btn btn-primary btn-block" data-toggle="collapse" href="#olderHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <h3>Older</h3>
-                </a>
-                <div class="collapse" id="olderHistory">
-                <div id="olderHistoryItems"></div>
+                <div class="row" id="lastMonthHistoryBlock">
+                    <div class="col-12">
+                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#lastMonthHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h3>This month</h3>
+                        </a>
+                        <div class="collapse" id="lastMonthHistory">
+                        <div id="lastMonthHistoryItems"></div>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
-                <hr>
-            </div>
-        </div>
-    </section>
+                <div class="row" id="olderHistoryBlock">
+                    <div class="col-12">
+                        <a class="btn btn-primary btn-block" data-toggle="collapse" href="#olderHistory" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <h3>Older</h3>
+                        </a>
+                        <div class="collapse" id="olderHistory">
+                        <div id="olderHistoryItems"></div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </section>
+            <section id="search">
+                
+            </section>
+        </section>
     </div>
 
     <script src="../js/extras/jquery-3.3.1.slim.min.js"></script>
