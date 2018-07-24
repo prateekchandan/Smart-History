@@ -122,3 +122,8 @@ body {
 .search-box:not(:valid) ~ .close-icon {
 	display: none;
 }
+.search-items
+{
+  margin: 10px;
+  background: #F1F1F1;
+}
