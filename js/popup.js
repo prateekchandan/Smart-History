@@ -2,15 +2,13 @@ let list = document.getElementById("list");
 
 // populate the popup
 let historyItemList = new HistoryItemList();
-let historyItems = historyItemList.items;
+let historyItems = FlattenObjectToValueArray(historyItemList.items);
 
 let historyHour = {};
 let historyToday = {};
 let historyLastWeek = {};
 let historyLastMonth = {};
 let historyOlder = {};
-
-var titles = [];
 
 let currentDate = new Date();
 let currentTimeInMillis = currentDate.getTime();
@@ -23,25 +21,23 @@ function PutHistoryItemInGroup(group, historyItem)
         group[hostname] = [];
     }
     group[hostname].push(historyItem);
-    titles.push(historyItem.title);
 }
 
-for (var id in historyItems) {
-    if (historyItems.hasOwnProperty(id)) {
-        let historyItem = historyItems[id];
-        let hoursOld = Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 3600000);
-        let daysOld = Math.ceil(hoursOld/24);
-        if(hoursOld <= 1)
-            PutHistoryItemInGroup(historyHour, historyItem);
-        else if (daysOld <= 1)
-            PutHistoryItemInGroup(historyToday, historyItem);
-        else if (daysOld <= 7)
-            PutHistoryItemInGroup(historyLastWeek, historyItem);
-        else if (daysOld <= 30)
-            PutHistoryItemInGroup(historyLastMonth, historyItem);
-        else if (daysOld <= 30)
-            PutHistoryItemInGroup(historyOlder, historyItem);
-    }
+
+for (let i = historyItems.length - 1; i >=0; i--) {
+    let historyItem = historyItems[i];
+    let hoursOld = Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 3600000);
+    let daysOld = Math.ceil(hoursOld/24);
+    if(hoursOld <= 1)
+        PutHistoryItemInGroup(historyHour, historyItem);
+    else if (daysOld <= 1)
+        PutHistoryItemInGroup(historyToday, historyItem);
+    else if (daysOld <= 7)
+        PutHistoryItemInGroup(historyLastWeek, historyItem);
+    else if (daysOld <= 30)
+        PutHistoryItemInGroup(historyLastMonth, historyItem);
+    else if (daysOld <= 30)
+        PutHistoryItemInGroup(historyOlder, historyItem);
 }
 
 function FillUpHistory(historyObject, parentDomId)
@@ -101,7 +97,7 @@ function FillUpHistory(historyObject, parentDomId)
                     {
                         dateString = date.getDate()+ "-" + date.getMonth() + "-" + date.getFullYear();
                     }
-                    document.getElementById(id + "-card").innerHTML += `
+                    document.getElementById(id + "-card").innerHTML = `
                     <div class="row">
                         <div class="col-1">
                         <img src="${favicon}" class="favicon">
@@ -114,10 +110,10 @@ function FillUpHistory(historyObject, parentDomId)
                         <span class="time-text">${dateString}</span>
                         </div>
                     </div>
-                    `;
+                    ` +  document.getElementById(id + "-card").innerHTML;
                     if( i > 0)
                     {
-                        document.getElementById(id + "-card").innerHTML += '<hr>';
+                        document.getElementById(id + "-card").innerHTML = '<hr>' + document.getElementById(id + "-card").innerHTML;
                     }
                 }
             }
@@ -151,9 +147,6 @@ var pages = new Bloodhound({
   },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   local: historyItems
-  //identify: function(obj) { return obj.title; },
-  //local: titles
-  
 });
 
 var initialized = pages.initialize();
@@ -161,7 +154,6 @@ initialized
 .done(function() { console.log('ready to go!'); })
 .fail(function() { console.log('err, something went wrong :('); });
 
-//$('#scrollable-dropdown-menu .typeahead').typeahead({
 $('#searchWorker').typeahead({
   hint: true,
   highlight: true,

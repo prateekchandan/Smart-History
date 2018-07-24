@@ -170,4 +170,15 @@ function ExtractHostname(url)
     return hostname;
 }
 
+function FlattenObjectToValueArray(obj)
+{
+    let arr = [];
+    for (var id in obj) {
+        if (obj.hasOwnProperty(id)) {
+            arr.push(obj[id]);
+        }
+    }
+    return arr;
+}
+
 //#endregion

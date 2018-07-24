@@ -84,6 +84,7 @@
 	position: relative;
 	margin: 100px;
 }
+
 .typeahead, .tt-query, .tt-hint {
 	border: 2px solid #CCCCCC;
 	border-radius: 8px;
