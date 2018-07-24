@@ -9,6 +9,8 @@ let historyLastWeek = {};
 let historyLastMonth = {};
 let historyOlder = {};
 
+var titles = [];
+
 let currentDate = new Date();
 let currentTimeInMillis = currentDate.getTime();
 
@@ -20,6 +22,7 @@ function PutHistoryItemInGroup(group, historyItem)
         group[hostname] = [];
     }
     group[hostname].push(historyItem);
+    titles.push(historyItem.title);
 }
 
 historyItems.map((historyItem) =>
@@ -126,3 +129,31 @@ FillUpHistory(historyOlder, olderHistoryItems);
 
 $("#loader").css("display","none");
 $("#content").css("display","block");
+
+// data for suggestion engine
+
+
+// construct the suggestion engine
+var pages = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //identify: function(obj) { return obj.title; },
+  local: titles
+  
+});
+
+var initialized = pages.initialize();
+initialized
+.done(function() { console.log('ready to go!'); })
+.fail(function() { console.log('err, something went wrong :('); });
+
+//$('#scrollable-dropdown-menu .typeahead').typeahead({
+$('#searchWorker').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: 'pages',
+  source: pages
+});
