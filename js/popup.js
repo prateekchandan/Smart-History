@@ -1,7 +1,8 @@
 let list = document.getElementById("list");
 
 // populate the popup
-let historyItems = ExtensionState.GetAllHistoryItems();
+let historyItemList = new HistoryItemList();
+let historyItems = historyItemList.items;
 
 let historyHour = {};
 let historyToday = {};
@@ -22,26 +23,29 @@ function PutHistoryItemInGroup(group, historyItem)
     group[hostname].push(historyItem);
 }
 
-historyItems.map((historyItem) =>
-{
-    let hoursOld = Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 3600000);
-    let daysOld = Math.ceil(hoursOld/24);
-    if(hoursOld <= 1)
-        PutHistoryItemInGroup(historyHour, historyItem);
-    else if (daysOld <= 1)
-        PutHistoryItemInGroup(historyToday, historyItem);
-    else if (daysOld <= 7)
-        PutHistoryItemInGroup(historyLastWeek, historyItem);
-    else if (daysOld <= 30)
-        PutHistoryItemInGroup(historyLastMonth, historyItem);
-    else if (daysOld <= 30)
-        PutHistoryItemInGroup(historyOlder, historyItem);
-});
+for (var id in historyItems) {
+    if (historyItems.hasOwnProperty(id)) {
+        let historyItem = historyItems[id];
+        let hoursOld = Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 3600000);
+        let daysOld = Math.ceil(hoursOld/24);
+        if(hoursOld <= 1)
+            PutHistoryItemInGroup(historyHour, historyItem);
+        else if (daysOld <= 1)
+            PutHistoryItemInGroup(historyToday, historyItem);
+        else if (daysOld <= 7)
+            PutHistoryItemInGroup(historyLastWeek, historyItem);
+        else if (daysOld <= 30)
+            PutHistoryItemInGroup(historyLastMonth, historyItem);
+        else if (daysOld <= 30)
+            PutHistoryItemInGroup(historyOlder, historyItem);
+    }
+}
 
 function FillUpHistory(historyObject, parentDomId)
 {
     let i = 1;
-    for (var hostName in historyObject) {
+    for (var hostName in historyObject) 
+    {
         if (historyObject.hasOwnProperty(hostName)) {
             let id = parentDomId.id+i;
             i++;
@@ -115,6 +119,13 @@ function FillUpHistory(historyObject, parentDomId)
                 }
             }
         }
+    }
+
+    if(i==1) // No items available
+    {
+        let id = parentDomId.id;
+        id = id.substr(0, id.lastIndexOf("Items")) + "Block";
+        $("#"+id).css("display","none");
     }
 }
 

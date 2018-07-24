@@ -10,20 +10,32 @@ let browserWrapper = browser;
 // var browserWrapper = chrome;
 
 let c_historySotageId = "HistoryItems";
+let c_treeStorageId = "TreeItems";
 let c_id = "Id";
+let c_treeId = "TreeId";
 
 class ExtensionState
 {
-    static CreateNewId()
+    static CreateNewIdHelper(idString)
     {
-        let lastId = localStorage.getItem(c_id);
+        let lastId = localStorage.getItem(idString);
         if (lastId == null)
         {
             lastId = -1;
         }
         lastId++;
-        localStorage.setItem(c_id, lastId);
+        localStorage.setItem(idString, lastId);
         return lastId;
+    }
+
+    static CreateNewId()
+    {
+        return ExtensionState.CreateNewIdHelper(c_id);
+    }
+
+    static CreateNewTreeId()
+    {
+        return ExtensionState.CreateNewIdHelper(c_treeId);
     }
 
     static GetAllHistoryItems()
@@ -68,20 +80,75 @@ class ExtensionState
 
 class HistoryItem
 {
-    constructor(title, url, parentId, faviconUrl, timeStamp)
+    constructor(title, url, parentId, faviconUrl, treeId)
     {
         this.title = title;
         this.id = ExtensionState.CreateNewId();
         this.parentId = parentId;
         this.url = url;
-        this.timeStamp = timeStamp;
+        this.timeStamp = Date.now();
         this.hostname = ExtractHostname(url);
         this.faviconUrl = faviconUrl;
+        this.treeId = treeId;
         console.log(faviconUrl);
     }
 }
 
-function ExtractHostname(url) {
+class TreeItem
+{
+    constructor(hostname, searchString)
+    {
+        this.id = ExtensionState.CreateNewTreeId();
+        this.hostname = hostname;
+        this.searchString = searchString;
+        this.isSearchEngine = ((searchString == null) || (searchString.length == 0));
+        if(this.isSearchEngine)
+        {
+            if(hostname == "www.google.com")
+            {
+                this.searchEngine == "Google";
+            }
+            else if(hostname == "www.bing.com")
+            {
+                this.searchEngine == "Bing";
+            }
+        }
+    }
+}
+
+class HistoryItemList
+{
+    constructor()
+    {
+        let historyItems = localStorage.getItem(c_historySotageId);
+        if (historyItems == null)
+        {
+            historyItems = "{}";
+        }
+        this.items = JSON.parse(historyItems);
+    }
+
+    AddOrupdateItems(historyItem)
+    {
+        this.items[historyItem.id] = historyItem;
+        this.Update();
+    }
+
+    GetItemWithId(id)
+    {
+        return this.items[id];
+    }
+
+    Update()
+    {
+        localStorage.setItem(c_historySotageId, JSON.stringify(this.items));
+    }
+}
+
+//#region Util Methods
+
+function ExtractHostname(url) 
+{
     console.log(url);
     var hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
@@ -102,3 +169,5 @@ function ExtractHostname(url) {
 
     return hostname;
 }
+
+//#endregion

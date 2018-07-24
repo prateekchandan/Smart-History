@@ -6,6 +6,8 @@ browserWrapper.tabs.onActivated.addListener(OnTabAcitvated);
 let currentTabId = -1;
 let tabToHistoryMap = {};
 
+let historyItemList = new HistoryItemList();
+
 function OnTabUpdated(tabId, changeInfo, tabInfo)
 {
     if (changeInfo.status == "complete")
@@ -20,8 +22,8 @@ function OnTabUpdated(tabId, changeInfo, tabInfo)
             parentId = -1;
         }
         console.log(tabInfo);
-        let historyItem = new HistoryItem(tabInfo.title, tabInfo.url, parentId, tabInfo.favIconUrl, Date.now());
-        ExtensionState.AddToHistoryList(historyItem);
+        let historyItem = new HistoryItem(tabInfo.title, tabInfo.url, parentId, tabInfo.favIconUrl);
+        historyItemList.AddOrupdateItems(historyItem);
         tabToHistoryMap[tabId] = historyItem.id;
     }
 }
