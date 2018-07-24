@@ -18,31 +18,37 @@ function OnTabUpdated(tabId, changeInfo, tabInfo)
             return;
         }
         let parentId = tabToHistoryMap[currentTabId];
-        let treeId = -1;
+        let hostname = ExtractHostname(tabInfo.url);
+        let searchString = GetSearchStringFromUrl(tabInfo.url, hostname);
         let treeItem = null;
         if (parentId == null)
         {
             parentId = -1;
-            treeItem = new TreeItem(ExtractHostname(tabInfo.url), null);
+            treeItem = new TreeItem(ExtractHostname(tabInfo.url), searchString);
             treeItemList.AddOrupdateItems(treeItem);
-            treeId = treeItem.id;
         }
         else
         {
-            treeId = historyItemList.GetItemWithId(parentId).treeId;
-            treeItem = treeItemList.GetItemWithId(treeId);
+            treeItem = treeItemList.GetItemWithId(historyItemList.GetItemWithId(parentId).treeId);
             treeItem.timeStamp = Date.now();
+            if(searchString != null)
+            {
+                if(treeItem.isSearchEngine)
+                {
+                    treeItem = new TreeItem(ExtractHostname(tabInfo.url), searchString);
+                }
+                else
+                {
+                    treeItem.UpdateWithSearchString(searchString);
+
+                }
+            }
             treeItemList.AddOrupdateItems(treeItem);
         }
-        let historyItem = new HistoryItem(tabInfo.title, tabInfo.url, parentId, tabInfo.favIconUrl, treeId);
+        let historyItem = new HistoryItem(tabInfo.title, tabInfo.url, parentId, tabInfo.favIconUrl, treeItem.id);
         console.log(historyItem);
         historyItemList.AddOrupdateItems(historyItem);
         tabToHistoryMap[tabId] = historyItem.id;
-
-        if((historyItem.hostname == "www.google.com") || (historyItem.hostname == "www.bing.com"))
-        {
-            InjectContentScript(tabId);
-        }
     }
 }
 
@@ -51,18 +57,22 @@ function OnTabAcitvated(activeInfo)
     currentTabId = activeInfo.tabId;
 }
 
-function InjectContentScript(tabId)
+function GetSearchStringFromUrl(url, hostname)
 {
-    console.log(tabId);
-    browserWrapper.tabs.executeScript(tabId, {
-        code: `console.log('location:', window.location.href);`
-    }, function(results) {
-        if (browserWrapper.runtime.lastError || !results || !results.length) {
-            console.log("Inserting contentScriptError");
-            console.log(browserWrapper.runtime.lastError);
-            console.log(results);
-            return;  // Permission error, tab closed, etc.
-        }
-        console.log("Inserting contentScript Success");
-    });
+    if((hostname == "www.google.com") || (hostname == "www.bing.com"))
+    {
+        let queryString = GetParameterByName('q', url);
+        return queryString;
+    }
+    return null;
+}
+
+function GetParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }

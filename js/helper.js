@@ -60,16 +60,21 @@ class TreeItem
     {
         this.id = ExtensionState.CreateNewTreeId();
         this.hostname = hostname;
+        this.timeStamp = Date.now();
+        this.UpdateWithSearchString(searchString);
+    }
+
+    UpdateWithSearchString(searchString)
+    {
         this.searchString = searchString;
         this.isSearchEngine = !((searchString == null) || (searchString.length == 0));
-        this.timeStamp = Date.now();
         if(this.isSearchEngine)
         {
-            if(hostname == "www.google.com")
+            if(this.hostname == "www.google.com")
             {
                 this.searchEngine == "Google";
             }
-            else if(hostname == "www.bing.com")
+            else if(this.hostname == "www.bing.com")
             {
                 this.searchEngine == "Bing";
             }
