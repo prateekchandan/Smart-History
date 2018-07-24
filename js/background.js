@@ -10,6 +10,10 @@ function OnTabUpdated(tabId, changeInfo, tabInfo)
 {
     if (changeInfo.status == "complete")
     {
+        if((tabInfo.title == "New tab") || (tabInfo.title == "Can’t reach this page"))
+        {
+            return;
+        }
         let parentId = tabToHistoryMap[currentTabId];
         if (parentId == null)
         {
