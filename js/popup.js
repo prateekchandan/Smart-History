@@ -130,13 +130,13 @@ FillUpHistory(historyOlder, olderHistoryItems);
 $("#loader").css("display","none");
 $("#content").css("display","block");
 
-// data for suggestion engine
-
-
 // construct the suggestion engine
 var pages = new Bloodhound({
   datumTokenizer: function(d) { 
-    return Bloodhound.tokenizers.whitespace(d.title); 
+    var titleTokens = Bloodhound.tokenizers.whitespace(d.title);
+	var urlTokens = Bloodhound.tokenizers.nonword(d.url);
+
+	return titleTokens.concat(urlTokens); 
   },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   local: historyItems
