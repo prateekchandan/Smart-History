@@ -57,7 +57,7 @@ function FillUpHistory(historyObject, parentDomId)
             let id = parentDomId.id + i;
             i++;
             parentDomId.innerHTML += `
-            <a class="btn btn-outline-primary rounded-0 text-left btn-block result-title" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top:2px;">
+            <a class="btn btn-outline-secondary rounded-0 text-left btn-block result-title" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top:2px;">
                 ${hostName}
             </a>
             <div class="collapse" id="${id}">
