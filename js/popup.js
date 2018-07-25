@@ -57,11 +57,22 @@ function FillUpHistory(historyObject, parentDomId)
             let id = parentDomId.id + i;
             i++;
             parentDomId.innerHTML += `
-            <a class="btn btn-outline-secondary rounded-0 text-left btn-block result-title" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top:2px;">
-                ${hostName}
-            </a>
-            <div class="collapse" id="${id}">
-                <div class="card card-body history-item-element rounded-0" id="${id}-card">
+            <div class="row">
+                <div class="col-10" style="margin-right: 0; padding-right: 0;">
+                    <a class="btn btn-outline-secondary rounded-0 text-left btn-block" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top:2px;">
+                        ${hostName}
+                    </a>
+                </div>
+                <div class="col-2" style="margin-left: 0; padding-left: 0;">
+                    <a class="btn btn-secondary rounded-0 text-center btn-block" style="margin-top:2px;">
+                        X
+                    </a>
+                </div>
+                <div class="col-12">
+                    <div class="collapse" id="${id}">
+                        <div class="card card-body history-item-element rounded-0" id="${id}-card">
+                        </div>
+                    </div>
                 </div>
             </div>
             `;
@@ -201,9 +212,10 @@ function UpdateSearchBox()
     }
     for (let i = 0; i < resultBlocks.length; ++i)
     {
-        $("#searchCard"+i).on('click', '> *' , function(){
+        $("#searchCard" + i).on('click', '> *', function ()
+        {
             console.log("here");
-            $("#searchResult"+i)[0].click();
+            $("#searchResult" + i)[0].click();
         });
     }
     if (resultBlocks.length == 0)
