@@ -183,7 +183,7 @@ function UpdateSearchBox()
     {
         let result = JSON.parse($(resultBlocks[i]).text());
         let searchResultHtml = `
-        <div class="card rounded-0" style="margin-bottom: 2px">
+        <div class="card rounded-0" id="searchCard${i}" style="margin-bottom: 2px;">
         <div class="card-body">
             <div class="row">
                 <div class="col-1">
@@ -191,13 +191,20 @@ function UpdateSearchBox()
                 </div>
                 <div class="col-11">
                     <div class="title-text">${result.title}</div>
-                    <div><a href="${result.url}" data-toggle="tooltip" title="${result.url}" class="url-text">${result.url}</a></div>
+                    <div><a href="${result.url}" data-toggle="tooltip" title="${result.url}" id="searchResult${i}" class="url-text">${result.url}</a></div>
                 </div>
             </div>
         </div>
         </div>
         `
         $("#searchResults").html($("#searchResults").html() + searchResultHtml);
+    }
+    for (let i = 0; i < resultBlocks.length; ++i)
+    {
+        $("#searchCard"+i).on('click', '> *' , function(){
+            console.log("here");
+            $("#searchResult"+i)[0].click();
+        });
     }
     if (resultBlocks.length == 0)
     {
