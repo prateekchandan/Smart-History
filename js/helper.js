@@ -68,13 +68,13 @@ class TreeItem
     {
         this.searchString = searchString;
         this.isSearchEngine = !((searchString == null) || (searchString.length == 0));
-        if(this.isSearchEngine)
+        if (this.isSearchEngine)
         {
-            if(this.hostname == "www.google.com")
+            if (this.hostname == "www.google.com")
             {
                 this.searchEngine = "Google";
             }
-            else if(this.hostname == "www.bing.com")
+            else if (this.hostname == "www.bing.com")
             {
                 this.searchEngine = "Bing";
             }
@@ -147,10 +147,12 @@ function ExtractHostname(url)
     var hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
 
-    if (url.indexOf("://") > -1) {
+    if (url.indexOf("://") > -1)
+    {
         hostname = url.split('/')[2];
     }
-    else {
+    else
+    {
         hostname = url.split('/')[0];
     }
 
@@ -167,8 +169,10 @@ function ExtractHostname(url)
 function FlattenObjectToValueArray(obj)
 {
     let arr = [];
-    for (var id in obj) {
-        if (obj.hasOwnProperty(id)) {
+    for (var id in obj)
+    {
+        if (obj.hasOwnProperty(id))
+        {
             arr.push(obj[id]);
         }
     }
@@ -181,33 +185,50 @@ function GetDateStringFromTimeStamp(timeStamp)
     let currentTimeInMillis = currentDate.getTime();
     let date = new Date(timeStamp);
     let dateString = "";
-    if(Math.ceil((currentTimeInMillis - timeStamp) / 3600000) <= 24)
+    if (Math.ceil((currentTimeInMillis - timeStamp) / 3600000) <= 24)
     {
         dateString = date.getHours() % 12;
-        if((date.getHours() % 12) < 10)
+        if ((date.getHours() % 12) < 10)
         {
             dateString = "0" + dateString;
         }
         dateString += ":";
-        if(date.getMinutes() < 10)
+        if (date.getMinutes() < 10)
         {
-            dateString += "0"; 
+            dateString += "0";
         }
         dateString += date.getMinutes() + " ";
-        if(date.getHours() < 12)
+        if (date.getHours() < 12)
         {
-            dateString+="A.M";
+            dateString += "A.M";
         }
         else
         {
-            dateString+="P.M";
+            dateString += "P.M";
         }
     }
     else
     {
-        dateString = date.getDate()+ "-" + date.getMonth() + "-" + date.getFullYear();
+        dateString = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
     }
     return dateString;
 }
 
 //#endregion
+
+$.scrollbarWidth = function ()
+{
+    var parent, child, width;
+
+    if (width === undefined)
+    {
+        parent = $('<div style="width:50px;height:50px;overflow:auto"><div/></div>').appendTo('body');
+        child = parent.children();
+        width = child.innerWidth() - child.height(99).innerWidth();
+        parent.remove();
+    }
+
+    return width;
+};
+
+$('body').css('margin-right', $.scrollbarWidth() + 'px');

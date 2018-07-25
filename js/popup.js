@@ -18,11 +18,11 @@ function PutHistoryItemInGroup(group, historyItem)
 {
     let treeItem = treeItemList.GetItemWithId(historyItem.treeId);
     let hostname = ExtractHostname(historyItem.url);
-    if(treeItem.isSearchEngine)
+    if (treeItem.isSearchEngine)
     {
         hostname = treeItem.searchEngine + " Search: " + treeItem.searchString;
     }
-    if(!(hostname in group))
+    if (!(hostname in group))
     {
         group[hostname] = [];
     }
@@ -30,11 +30,12 @@ function PutHistoryItemInGroup(group, historyItem)
 }
 
 
-for (let i = historyItems.length - 1; i >=0; i--) {
+for (let i = historyItems.length - 1; i >= 0; i--)
+{
     let historyItem = historyItems[i];
     let hoursOld = Math.ceil((currentTimeInMillis - historyItem.timeStamp) / 3600000);
-    let daysOld = Math.ceil(hoursOld/24);
-    if(hoursOld <= 1)
+    let daysOld = Math.ceil(hoursOld / 24);
+    if (hoursOld <= 1)
         PutHistoryItemInGroup(historyHour, historyItem);
     else if (daysOld <= 1)
         PutHistoryItemInGroup(historyToday, historyItem);
@@ -51,15 +52,16 @@ function FillUpHistory(historyObject, parentDomId)
     let i = 1;
     for (var hostName in historyObject) 
     {
-        if (historyObject.hasOwnProperty(hostName)) {
-            let id = parentDomId.id+i;
+        if (historyObject.hasOwnProperty(hostName))
+        {
+            let id = parentDomId.id + i;
             i++;
             parentDomId.innerHTML += `
-            <a class="btn btn-outline-primary btn-block result-title" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-outline-primary rounded-0 text-left btn-block result-title" data-toggle="collapse" href="#${id}" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top:2px;">
                 ${hostName}
             </a>
             <div class="collapse" id="${id}">
-                <div class="card card-body history-item-element" id="${id}-card">
+                <div class="card card-body history-item-element rounded-0" id="${id}-card">
                 </div>
             </div>
             `;
@@ -71,7 +73,7 @@ function FillUpHistory(historyObject, parentDomId)
                 {
                     let domain = historyArray[i].hostname;
                     let favicon = "../image/browseraction_icon_40.png";
-                    if(historyArray[i].faviconUrl != undefined)
+                    if (historyArray[i].faviconUrl != undefined)
                     {
                         favicon = historyArray[i].faviconUrl;
                     }
@@ -89,8 +91,8 @@ function FillUpHistory(historyObject, parentDomId)
                         <span class="time-text">${dateString}</span>
                         </div>
                     </div>
-                    ` +  document.getElementById(id + "-card").innerHTML;
-                    if( i > 0)
+                    ` + document.getElementById(id + "-card").innerHTML;
+                    if (i > 0)
                     {
                         document.getElementById(id + "-card").innerHTML = '<hr>' + document.getElementById(id + "-card").innerHTML;
                     }
@@ -99,11 +101,11 @@ function FillUpHistory(historyObject, parentDomId)
         }
     }
 
-    if(i==1) // No items available
+    if (i == 1) // No items available
     {
         let id = parentDomId.id;
         id = id.substr(0, id.lastIndexOf("Items")) + "Block";
-        $("#"+id).css("display","none");
+        $("#" + id).css("display", "none");
     }
 }
 
@@ -113,67 +115,71 @@ FillUpHistory(historyLastWeek, thisWeekHistoryItems);
 FillUpHistory(historyLastMonth, lastMonthHistoryItems);
 FillUpHistory(historyOlder, olderHistoryItems);
 
-$("#loader").css("display","none");
-$("#HistoryContent").css("display","block");
-$("#allItem").css("display","block");
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+$("#loader").css("display", "none");
+$("#HistoryContent").css("display", "block");
+$("#allItem").css("display", "block");
+$(document).ready(function ()
+{
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 // construct the suggestion engine
 var pages = new Bloodhound({
-  datumTokenizer: function(d) { 
-    var titleTokens = Bloodhound.tokenizers.whitespace(d.title);
-	var urlTokens = Bloodhound.tokenizers.nonword(d.url);
+    datumTokenizer: function (d)
+    {
+        var titleTokens = Bloodhound.tokenizers.whitespace(d.title);
+        var urlTokens = Bloodhound.tokenizers.nonword(d.url);
 
-	return titleTokens.concat(urlTokens); 
-  },
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  local: historyItems
+        return titleTokens.concat(urlTokens);
+    },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: historyItems
 });
 
 var initialized = pages.initialize();
 initialized
-.done(function() { console.log('ready to go!'); })
-.fail(function() { console.log('err, something went wrong :('); });
+    .done(function () { console.log('ready to go!'); })
+    .fail(function () { console.log('err, something went wrong :('); });
 
 $('#searchWorker').typeahead({
-  hint: false,
-  highlight: true,
-  minLength: 1
+    hint: false,
+    highlight: true,
+    minLength: 1
 },
+    {
+        name: 'pages',
+        source: pages
+    });
+
+$("#searchbox").on('input change click', function ()
 {
-  name: 'pages',
-  source: pages
+    $(".typeahead").typeahead('val', $(this).val());
+    UpdateSearchBox();
 });
 
-$("#searchbox").on('input change click', function() {
-    $(".typeahead").typeahead('val',$(this).val());
-    UpdateSearchBox();
- });
-
- $(".close-icon").on('click', function(){
+$(".close-icon").on('click', function ()
+{
     $("#searchbox").val("");
-    $(".typeahead").typeahead('val',$("#searchbox").val());
+    $(".typeahead").typeahead('val', $("#searchbox").val());
     UpdateSearchBox();
- });
+});
 
- function UpdateSearchBox()
- {
+function UpdateSearchBox()
+{
     let text = $("#searchbox").val();
     $("#searchResults").html("");
-    if(text.length == 0)
+    if (text.length == 0)
     {
-        $("#HistoryContent").css("display","block");
-        $("#search").css("display","none");
+        $("#HistoryContent").css("display", "block");
+        $("#search").css("display", "none");
         return;
     }
-    $("#HistoryContent").css("display","none");
-    $("#search").css("display","block");
+    $("#HistoryContent").css("display", "none");
+    $("#search").css("display", "block");
 
     let resultBlocks = $('.tt-suggestion');
 
-    for(let i = 0; i < resultBlocks.length; ++i)
+    for (let i = 0; i < resultBlocks.length; ++i)
     {
         let result = JSON.parse($(resultBlocks[i]).text());
         let searchResultHtml = `
@@ -192,8 +198,8 @@ $("#searchbox").on('input change click', function() {
                     `;
         $("#searchResults").html($("#searchResults").html() + searchResultHtml + "<hr>");
     }
-    if(resultBlocks.length == 0)
+    if (resultBlocks.length == 0)
     {
         $("#searchResults").html(`<div class="alert alert-dark">No Search Result!</div>`);
     }
- }
+}
