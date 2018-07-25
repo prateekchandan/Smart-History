@@ -200,11 +200,11 @@ function GetDateStringFromTimeStamp(timeStamp)
         dateString += date.getMinutes() + " ";
         if (date.getHours() < 12)
         {
-            dateString += "A.M";
+            dateString += "AM";
         }
         else
         {
-            dateString += "P.M";
+            dateString += "PM";
         }
     }
     else
